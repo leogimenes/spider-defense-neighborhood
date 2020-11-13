@@ -25,7 +25,7 @@ public class LoggingController extends HandlerInterceptorAdapter {
         logger.warn("A WARN Message");
         logger.error("An ERROR Message");
  
-        return "Howdy! Check out the Logs to see the output...";
+        return "Este eh um teste";
     }
 	
 	@Override

@@ -29,9 +29,7 @@ public class Model{
         host=arg[0];
       }
       else{
-        host=JOptionPane.showInputDialog("Enter username@hostname",
-                                         System.getProperty("user.name")+
-                                         "@localhost"); 
+        host="cumulus@192.168.0.150"; 
       }
       String user=host.substring(0, host.indexOf('@'));
       host=host.substring(host.indexOf('@')+1);
@@ -54,8 +52,7 @@ public class Model{
       session.setUserInfo(ui);
       session.connect();
 
-      String command=JOptionPane.showInputDialog("Enter command", 
-                                                 "set|grep SSH");
+      String command= "snmpget -v2c -c public localhost .1.3.6.1.4.1.2021.4.6.0";
 
       Channel channel=session.openChannel("exec");
       ((ChannelExec)channel).setCommand(command);
@@ -78,8 +75,9 @@ public class Model{
 
       byte[] tmp=new byte[1024];
       while(true){
-        while(in.available()>0){
+        while(channel.isConnected()){
           int i=in.read(tmp, 0, 1024);
+          System.out.println(i);
           if(i<0)break;
           System.out.print(new String(tmp, 0, i));
         }
@@ -88,7 +86,8 @@ public class Model{
           System.out.println("exit-status: "+channel.getExitStatus());
           break;
         }
-        try{Thread.sleep(1000);}catch(Exception ee){}
+        try{Thread.sleep(1000);}
+        catch(Exception ee){}
       }
       channel.disconnect();
       session.disconnect();
@@ -101,13 +100,14 @@ public class Model{
   public static class MyUserInfo implements UserInfo, UIKeyboardInteractive{
     public String getPassword(){ return passwd; }
     public boolean promptYesNo(String str){
-      Object[] options={ "yes", "no" };
-      int foo=JOptionPane.showOptionDialog(null, 
-             str,
-             "Warning", 
-             JOptionPane.DEFAULT_OPTION, 
-             JOptionPane.WARNING_MESSAGE,
-             null, options, options[0]);
+//      Object[] options={ "yes", "no" };
+//      int foo=JOptionPane.showOptionDialog(null, 
+//             str,
+//             "Warning", 
+//             JOptionPane.DEFAULT_OPTION, 
+//             JOptionPane.WARNING_MESSAGE,
+//             null, options, options[0]);
+    	int foo = 0;
        return foo==0;
     }
   
@@ -117,17 +117,20 @@ public class Model{
     public String getPassphrase(){ return null; }
     public boolean promptPassphrase(String message){ return true; }
     public boolean promptPassword(String message){
-      Object[] ob={passwordField}; 
-      int result=
-        JOptionPane.showConfirmDialog(null, ob, message,
-                                      JOptionPane.OK_CANCEL_OPTION);
-      if(result==JOptionPane.OK_OPTION){
-        passwd=passwordField.getText();
-        return true;
-      }
-      else{ 
-        return false; 
-      }
+//      Object[] ob={passwordField}; 
+//      int result=
+//        JOptionPane.showConfirmDialog(null, ob, message,
+//                                      JOptionPane.OK_CANCEL_OPTION);
+//      if(result==JOptionPane.OK_OPTION){
+//        passwd=passwordField.getText();
+//        return true;
+//      }
+//      else{ 
+//        return false; 
+//      }
+    	
+    	passwd = "dn14q8m6";
+    	return true;
     }
     public void showMessage(String message){
       JOptionPane.showMessageDialog(null, message);

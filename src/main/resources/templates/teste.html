@@ -69,24 +69,27 @@
 	      <script type="text/javascript" th:inline="javascript">
 
 	       var memoria = {
-	    		  usoMemoria:0,
-	    		  hora:'2020-11-19 03:25:00'
+	    		  y: 0,
 	       }
-	      	
-	       	console.log(memoria);
+	       
+	       var datz = {            	
+	                y:[memoria.y],
+	                mode: 'lines+markers',
+	                name: 'a',
+	                type:'line'
+	            	}
+	       var layout = {
+	            	title: '% Mem RAM'
+	            	}
+	      	var datz2 = [datz];
 	       	getData();
-	       	console.log(memoria);
-            Plotly.plot('chart',[{            	
-            	x:[memoria.hora],
-                y:[memoria.usoMemoria],
-                type:'line'
-            }]);
-				
+            Plotly.newPlot('chart', datz2, layout);
+			console.log(datz2);
             
             var cnt = 0;
             setInterval(function(){
             	getData();
-                Plotly.extendTraces('chart',{ y:[ [memoria.usoMemoria] ], x:[ [memoria.hora] ]}, [0]);
+                Plotly.extendTraces('chart',{ y:[ [memoria.y] ]}, [0]);
                 cnt++;
                 if(cnt > 10) {
                     Plotly.relayout('chart',{
@@ -100,9 +103,7 @@
             function getData() {
             	var JSON;
             	var x =$.getJSON( "api/memoria", function( data ) {
-            		memoria.usoMemoria = data.usoMemoria;
-            		memoria.hora = data.hora;
-            		
+            		memoria.y = data.usoMemoria;
             	});
 			
                 

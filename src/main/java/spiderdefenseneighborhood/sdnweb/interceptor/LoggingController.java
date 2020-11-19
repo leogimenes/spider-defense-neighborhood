@@ -30,14 +30,14 @@ public class LoggingController extends HandlerInterceptorAdapter {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 		
 		logger.info("[preHandle][" + request + "]" + "[" + request.getMethod()
 		+ "]" + request.getRequestURI() + getParameters(request));
-		if(session.getAttribute("usuarioLogado") == null) {
-			response.sendRedirect("/login");
-			return false;
-		}
+//		if(session.getAttribute("usuarioLogado") == null) {
+//			response.sendRedirect("/login");
+//			return false;
+//		}
 
 		return true;
 	}

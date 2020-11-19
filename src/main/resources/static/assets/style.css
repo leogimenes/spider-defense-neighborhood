@@ -1,0 +1,112 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+body{
+    background: #353535;
+    font-family: 'Ubuntu', sans-serif;
+
+}
+.container header{
+  width: 250px;
+  font-size: 22px;
+  text-align: center;
+  line-height: 70px;
+  background: #353535;
+  user-select: none;
+  color: white;
+}
+.container header span{
+  color: white;
+}
+.container label{
+  color: #575757;
+  font-size: 22px;
+  position: absolute;
+  left: 180px;
+  top: 10px;
+  transition: .5s;
+}
+.sidebar{
+  position: fixed;
+  left: 0px;
+  width: 250px;
+  height: 100%;
+  background: #575757;
+  transition: .5s;
+}
+.sidebar ul a{
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 65px;
+  font-size: 20px;
+  padding-left: 40px;
+  box-sizing: border-box;
+  border-top: 5px solid rgb(255,255,255,.1);
+  transition: .2s;
+  color: white;
+
+}
+ul li:hover a{
+  padding-left: 50px;
+}
+.sidebar ul a i{
+  padding-right: 16px;
+}
+.grafico{
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 700px;
+  height: 400px;
+}
+.container-grafico{
+  position: fixed;
+  left: 270px;
+  width: 720px;
+  height: 420px;
+  top: 70px;
+  background-color: #575757;
+}
+.container-grafico2{
+  position: fixed;
+  left: 1000px;
+  width: 720px;
+  height: 420px;
+  top: 70px;
+  background-color: #575757;
+}
+.container-grafico3{
+  position: fixed;
+  left: 270px;
+  width: 720px;
+  height: 420px;
+  top: 500px;
+  background-color: #575757;
+}
+.container-grafico4{
+  position: fixed;
+  left: 1000px;
+  width: 720px;
+  height: 420px;
+  top: 500px;
+  background-color: #575757;
+}
+#check{
+  display: none;
+}
+label #btn{
+  cursor: pointer;
+}
+#check:checked ~ .sidebar{
+  left: -250px;
+}
+#check:checked ~ label{
+  left: 20px;
+}

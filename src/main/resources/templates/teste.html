@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" th:href="@{/assets/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
+  <script src="webjars/jquery/3.1.1/jquery.js"></script>
+  <title>Side bar</title>
+
 </head>
 <body>
+
+  <div class="container">	
+
+    <input type="checkbox" id="check">
+    <div class="sidebar">
+      <header>
+        <span>SDN</span>
+      </header>
+
+      <ul>
+        <li><a href=""><i class="fa fa-tachometer fa-2x"></i> Dashboard</a></li>
+        <li><a href=""><i class="fa fa-server fa-2x"></i> Dispositivos</a></li>
+        <li><a href=""><i class="fa fa-exclamation-triangle fa-2x"></i> Alertas</a></li>
+        <li><a href=""><i class="fa fa-cog fa-2x"></i> Configurações</a></li>
+      </ul>
+
+    </div>
+
+    <label for="check" >
+      <i class="fa fa-bars fa-2x" id="btn"></i>
+    </label>
+    <div class="container-grafico">
+
+      <div id="chart" class="grafico">
+
+      </div>
+
+    </div>
+
+    <div class="container-grafico2">
+
+      <div id="chart-div2" class="grafico">
+
+      </div>
+
+    </div>
+
+    <div class="container-grafico3">
+
+      <div id="chart-div3" class="grafico">
+
+      </div>
+
+    </div>
+
+    <div class="container-grafico4">
+
+      <div id="chart-div4" class="grafico">
+
+      </div>
+
+    </div>
+  </div>
+	      <script type="text/javascript" th:inline="javascript">
+
+            Plotly.plot('chart',[{
+                y:[getData()],
+                type:'line'
+            }]);
+
+            var cnt = 0;
+            setInterval(function(){
+                Plotly.extendTraces('chart',{ y:[ [getData()] ]}, [0]);
+                cnt++;
+                if(cnt > 60) {
+                    Plotly.relayout('chart',{
+                        xaxis: {
+                            range: [cnt-60,cnt]
+                        }
+                    });
+                }
+            },10000);
+            
+            function getData() {
+            	var x = $.get("/").attr("numero");
+
+              	console.log(x);
+                
+                
+            }
+        </script>
 
 </body>
 </html>

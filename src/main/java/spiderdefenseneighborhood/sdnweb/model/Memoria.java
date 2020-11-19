@@ -7,16 +7,16 @@ public class Memoria {
 	
 	
 	private Double usoMemoria;
-	private String hora;
+	private Integer hora;
 	
-	public String getHora() {
+	public Integer getHora() {
 		LocalDateTime localDateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ss");
         String formatDateTime = localDateTime.format(formatter);
-		return formatDateTime;
+		return Integer.parseInt(formatDateTime);
 	}
 
-	public void setHora(String hora) {
+	public void setHora(Integer hora) {
 		this.hora = hora;
 	}
 

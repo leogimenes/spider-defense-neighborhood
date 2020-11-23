@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <div class="container">	
+  <div class="container">
 
     <input type="checkbox" id="check">
     <div class="sidebar">
@@ -36,7 +36,7 @@
     </label>
     <div class="container-grafico">
 
-      <div id="chart" class="grafico">
+      <div id="grafico_memoria" class="grafico">
 
       </div>
 
@@ -71,8 +71,8 @@
 	       var memoria = {
 	    		  y: 0,
 	       }
-	       
-	       var datz = {            	
+
+	       var datz = {
 	                y:[memoria.y],
 	                mode: 'lines+markers',
 	                name: 'a',
@@ -83,29 +83,31 @@
 	            	}
 	      	var datz2 = [datz];
 	       	getData();
-            Plotly.newPlot('chart', datz2, layout);
-            
+            Plotly.newPlot('grafico_memoria', datz2, layout);
+            console.log(datz);
+            console.log(datz2);
             var cnt = 0;
             setInterval(function(){
             	getData();
-                Plotly.extendTraces('chart',{ y:[ [memoria.y] ]}, [0]);
+                Plotly.extendTraces('grafico_memoria',{ y:[ [memoria.y] ]}, [0]);
                 cnt++;
-                if(cnt > 10) {
-                    Plotly.relayout('chart',{
+                if(cnt > 20) {
+                    Plotly.relayout('grafico_memoria',{
                         xaxis: {
-                            range: [cnt-10,cnt]
+                            range: [cnt-20,cnt]
                         }
                     });
                 }
             },1000);
-            
+
             function getData() {
-            	var JSON;
             	var x =$.getJSON( "api/memoria", function( data ) {
-            		memoria.y = data.usoMemoria;
+            		memoria.y = data;
             	});
-			
-                
+				var disco = $.getJSON( "api/disco", function ( data ){
+					console.log(data);
+				});
+
             }
         </script>
 

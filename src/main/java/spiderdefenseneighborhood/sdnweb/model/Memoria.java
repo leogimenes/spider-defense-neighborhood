@@ -6,7 +6,9 @@ import java.time.format.DateTimeFormatter;
 public class Memoria {
 	
 	
+	@SuppressWarnings("unused")
 	private Double usoMemoria;
+	@SuppressWarnings("unused")
 	private Integer hora;
 	
 	public Integer getHora() {

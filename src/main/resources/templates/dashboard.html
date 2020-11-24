@@ -119,18 +119,28 @@
 
 	<script type="text/javascript" th:inline="javascript">
 		var disco = {
-			discoLivre : 50,
-			discoOcupado : 90,
+			disco1Livre : 0,
+			disco1Ocupado : 0,
+			disco2Livre : 0,
+			disco2Ocupado : 0,
+			disco3Livre : 0,
+			disco3Ocupado : 0,
+			disco4Livre : 0,
+			disco4Ocupado : 0,
+			disco5Livre : 0,
+			disco5Ocupado : 0,
+			disco6Livre : 0,
+			disco6Ocupado : 0			
 		};
 
 		var datz = [ {
-			values : [ disco.discoLivre, disco.discoOcupado ],
+			values : [ disco.disco1Livre, disco.disco1Ocupado, disco.disco2Livre, disco.disco2Ocupado, disco.disco3Livre, disco.disco3Ocupado, disco.disco4Livre, disco.disco4Ocupado, disco.disco5Livre, disco.disco5Ocupado, disco.disco6Livre, disco.disco6Ocupado ],
 			labels : [ 'Disco Livre', 'Disco Ocupado' ],
 			type : 'pie',
 			textinfo : "percent",
 			hoverinfo : 'label+value',
 			marker : {
-				colors : [ '#2ED069', 'D02E4E' ]
+				colors : [ '#2ED069', 'D02E4E', 'AB00D5', 'C6F700', '5381EC', 'F9B836', 'DC75EC', 'FBFF69', '71ECB3', 'F7A757', 'F75757', '3ABF47']
 			}
 		} ];
 		var layout = {
@@ -146,7 +156,8 @@
 		function getData() {
 
 			var y = $.getJSON("api/disco", function(data) {
-				datz[0].values = [data[2].discoLivre, data[2].discoUsado];
+				datz[0].values = [data[0].discoLivre, data[0].discoUsado, data[1].discoLivre, data[1].discoUsado, data[2].discoLivre, data[2].discoUsado, data[3].discoLivre, data[3].discoUsado, data[4].discoLivre, data[4].discoUsado, data[5].discoLivre, data[5].discoUsado];
+				datz[0].labels = ["Livre: " + data[0].partition , "Em uso:" + data[0].partition, "Livre: " + data[1].partition , "Em uso:" + data[1].partition, "Livre: " + data[2].partition , "Em uso:" + data[2].partition, "Livre: " + data[3].partition , "Em uso:" + data[3].partition, "Livre: " + data[4].partition , "Em uso:" + data[4].partition, "Livre: " + data[5].partition , "Em uso:" + data[5].partition];
 				console.log(datz);
 			});
 

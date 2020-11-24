@@ -14,7 +14,7 @@ public class SnmpToJavaTable extends SnmpToJava implements TableSelector {
 //		Formata linhas da tabela
 		String [] array1 = interpreter.split(",,");
 		
-		for(int i=0; i < array1.length-1; i++) {
+		for(int i=0; i < array1.length; i++) {
 			this.table.add(new ArrayList<>());
 //			Formata colunas da tabela
 			String[] s = array1[i].split(",");			
@@ -30,7 +30,7 @@ public class SnmpToJavaTable extends SnmpToJava implements TableSelector {
 		return getTable();
 	}	
 
-	private List<List<String>> getTable() {
+	public List<List<String>> getTable() {
 		return table;
 	}
 

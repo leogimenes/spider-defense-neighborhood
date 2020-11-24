@@ -9,7 +9,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no"
 >
-<script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
 >
@@ -17,8 +17,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 >
+
 <script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
 <script src="webjars/jquery/3.1.1/jquery.js"></script>
+<script src="webjars/bootstrap/js/bootstrap.min.js"></script>
 <title>DashBoard</title>
 
 </head>
@@ -112,10 +114,6 @@
 			var x = $.getJSON("api/memoria", function(data) {
 				memoria.y = data;
 			});
-			var disco = $.getJSON("api/disco", function(data) {
-				console.log(data);
-			});
-
 		}
 	</script>
 
@@ -147,9 +145,9 @@
 
 		function getData() {
 
-			var disco = $.getJSON("api/disco", function(data) {
-				disco.discoLivre = data;
-				disco.discoOcupado = data;
+			var y = $.getJSON("api/disco", function(data) {
+				datz[0].values = [data[2].discoLivre, data[2].discoUsado];
+				console.log(datz);
 			});
 
 		}
@@ -194,16 +192,12 @@
 					}
 				});
 			}
-		}, 1000);
+		}, 10000);
 
 		function getData() {
 			var x = $.getJSON("api/memoria", function(data) {
 				memoria.y = data;
 			});
-			var disco = $.getJSON("api/disco", function(data) {
-				console.log(data);
-			});
-
 		}
 	</script>
 
@@ -246,16 +240,12 @@
 					}
 				});
 			}
-		}, 1000);
+		}, 10000);
 
 		function getData() {
 			var x = $.getJSON("api/memoria", function(data) {
 				memoria.y = data;
 			});
-			var disco = $.getJSON("api/disco", function(data) {
-				console.log(data);
-			});
-
 		}
 	</script>
 

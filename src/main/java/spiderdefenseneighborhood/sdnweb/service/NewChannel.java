@@ -108,6 +108,7 @@ public class NewChannel {
 			while(in.available()>0){
 				int i=in.read(tmp, 0, 1024);
 				NewChannel.setInterpreter(new String(tmp, 0, i));
+				System.out.println(NewChannel.getInterpreter());
 				if(i<0)break;
 			}
 			if(channel.isClosed()){

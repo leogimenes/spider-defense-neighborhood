@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"
+>
+<script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+>
+<link rel="stylesheet" th:href="@{/assets/style.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+>
+<script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
+<script src="webjars/jquery/3.1.1/jquery.js"></script>
+<title>Side bar</title>
+
+</head>
+<body>
+
+	<div class="wrapper">
+
+
+		<div th:insert="sidebar"></div>
+
+		<div th:insert="botaoSidebar"></div>
+
+		<div class="row">
+
+
+			<div class="col-lg col-xl">
+
+				<div id="grafico_memoria" class="responsive-plot"></div>
+
+			</div>
+			<div class="row" style="height: 75px; width: 100%;"></div>
+			<div class="col-lg col-xl">
+
+				<div id="grafico_disco" class="responsive-plot"></div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg col-xl">
+
+				<div id="grafico_cpu" class="responsive-plot"></div>
+
+			</div>
+			<div class="row" style="height: 75px; width: 100%;"></div>
+			<div class="col-lg col-xl">
+
+				<div id="grafico_rede" class="responsive-plot"></div>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<script type="text/javascript" th:inline="javascript">
+		var memoria = {
+			y : 0,
+		};
+
+		var linha1 = {
+			y : [ memoria.y ],
+			mode : 'lines+markers',
+			name : 'aa caraio',
+			type : 'line',
+			line: {
+			    color: 'rgb(0, 0, 0)',
+			}
+		};
+		var linha2 = {
+			y : [0],
+			mode : 'lines',
+			line: {
+				color: 'white',
+			},
+			name : ''
+		}
+		var layout = {
+			title : 'Mem RAM'
+		};
+		var datz2 = [ linha1,linha2 ];
+		getData();
+		Plotly.newPlot('grafico_memoria', datz2, layout);
+		var cnt = 0;
+		setInterval(function() {
+			getData();
+			Plotly.extendTraces('grafico_memoria', {
+				y : [ [ memoria.y ] ]
+			}, [ 0 ]);
+			cnt++;
+			if (cnt > 20) {
+				Plotly.relayout('grafico_memoria', {
+					xaxis : {
+						range : [ cnt - 20, cnt ]
+					}
+				});
+			}
+		}, 1000);
+
+		function getData() {
+			var x = $.getJSON("api/memoria", function(data) {
+				memoria.y = data;
+			});
+			var disco = $.getJSON("api/disco", function(data) {
+				console.log(data);
+			});
+
+		}
+	</script>
+
+	<script type="text/javascript" th:inline="javascript">
+		var disco = {
+			discoLivre : 50,
+			discoOcupado : 90,
+		};
+
+		var datz = [{
+			values :[disco.discoLivre, disco.discoOcupado],
+			labels : ['Disco Livre', 'Disco Ocupado'],
+			type : 'pie',
+			textinfo: "percent",
+			hoverinfo: 'label+value',
+			marker: {
+			    colors: ['#2ED069','D02E4E']
+			 }
+		}];
+		var layout = {
+			title : 'Disco'
+		};
+		getData();
+		Plotly.newPlot('grafico_disco', datz, layout);
+		setInterval(function() {
+			getData();
+			Plotly.newPlot('grafico_disco', datz, layout);
+		}, 1000);
+
+		function getData() {
+
+			var disco = $.getJSON("api/disco", function(data) {
+				disco.discoLivre = data;
+				disco.discoOcupado = data;
+			});
+
+		}
+	</script>
+
+	<script type="text/javascript" th:inline="javascript">
+		var memoria = {
+			y : 0,
+		}
+
+		var linha1 = {
+			y : [ memoria.y ],
+			mode : 'lines+markers',
+			name : 'a',
+			type : 'line'
+		}
+		var linha2 = {
+				y : [0],
+				mode : 'lines',
+				line: {
+					color: 'white',
+				},
+				name : ''
+			}
+		var layout = {
+			title : '% Mem RAM'
+		}
+		var datz2 = [ linha1,linha2 ];
+		getData();
+		Plotly.newPlot('grafico_cpu', datz2, layout);
+		var cnt3 = 0;
+		setInterval(function() {
+			getData();
+			Plotly.extendTraces('grafico_cpu', {
+				y : [ [ memoria.y ] ]
+			}, [ 0 ]);
+			cnt3++;
+			if (cnt3 > 20) {
+				Plotly.relayout('grafico_cpu', {
+					xaxis : {
+						range : [ cnt3 - 20, cnt3 ]
+					}
+				});
+			}
+		}, 1000);
+
+		function getData() {
+			var x = $.getJSON("api/memoria", function(data) {
+				memoria.y = data;
+			});
+			var disco = $.getJSON("api/disco", function(data) {
+				console.log(data);
+			});
+
+		}
+	</script>
+
+	<script type="text/javascript" th:inline="javascript">
+		var memoria = {
+			y : 0,
+		}
+
+		var linha1 = {
+			y : [ memoria.y ],
+			mode : 'lines+markers',
+			name : 'a',
+			type : 'line'
+		}
+		var linha2 = {
+				y : [0],
+				mode : 'lines',
+				line: {
+					color: 'white',
+				},
+				name : ''
+			}
+		var layout = {
+			title : ''
+		}
+		var datz2 = [ linha1,linha2 ];
+		getData();
+		Plotly.newPlot('grafico_rede', datz2, layout);
+		var cnt4 = 0;
+		setInterval(function() {
+			getData();
+			Plotly.extendTraces('grafico_rede', {
+				y : [ [ memoria.y ] ]
+			}, [ 0 ]);
+			cnt4++;
+			if (cnt4 > 20) {
+				Plotly.relayout('grafico_rede', {
+					xaxis : {
+						range : [ cnt4 - 20, cnt4 ]
+					}
+				});
+			}
+		}, 1000);
+
+		function getData() {
+			var x = $.getJSON("api/memoria", function(data) {
+				memoria.y = data;
+			});
+			var disco = $.getJSON("api/disco", function(data) {
+				console.log(data);
+			});
+
+		}
+	</script>
+
+
+</body>
+</html>

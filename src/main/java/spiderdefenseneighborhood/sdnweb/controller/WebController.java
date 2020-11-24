@@ -8,12 +8,10 @@ import spiderdefenseneighborhood.sdnweb.model.Memoria;
 
 @Controller
 public class WebController {
-
-//	@RequestMapping(value="/", params={"novoNumero"})
 	
-	@GetMapping(value = {"/", "/index.html"})
+	@GetMapping(value = {"/", "/index"})
 	public ModelAndView index(ModelAndView map) {
-		map = new ModelAndView("teste");
+		map = new ModelAndView("dashboard");
 		
 		Memoria mem = new Memoria();
 		Double numero = mem.getUsoMemoria();
@@ -21,24 +19,5 @@ public class WebController {
 		
 		return map;
 	}
-
-	
-	@GetMapping(value = {"/novoNumero"})
-	public ModelAndView novoNumero(ModelAndView map) {
-		map = new ModelAndView("teste");
-		
-		Memoria mem = new Memoria();
-		Double numero = mem.getUsoMemoria();
-		map.addObject("numero", numero);
-		
-		return map;
-	}
-
-//	@RequestMapping(value="/", params={"novoNumero"})
-//	public String l(Memoria memoria){
-//		
-//		return"teste.html";
-//	}
-	
 
 }

@@ -16,10 +16,8 @@ public class TableInterpreter {
 			list.get(i).add(""+j2);
 			list.get(i).add(""+(j-j2));
 		}
-		System.out.println(list.toString());
 		
-		
-		return null;
+		return list;
 	}
 
 }

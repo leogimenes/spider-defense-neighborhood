@@ -61,12 +61,15 @@
 
 			</div>
 		</div>
-
+	<h3 th:text="${hostName}" style="color: white;"></h3>
 	</div>
 
 
 
 	<script type="text/javascript" th:inline="javascript">
+
+		var hostName = [[${hostName}]];			
+
 		var memoria = {
 			y : 0,
 		};
@@ -74,7 +77,7 @@
 		var linha1 = {
 			y : [ memoria.y ],
 			mode : 'lines+markers',
-			name : 'aa caraio',
+			name : '% de uso Memoria RAM',
 			type : 'line',
 			line : {
 				color : 'rgb(0, 0, 0)',
@@ -89,7 +92,7 @@
 			name : ''
 		}
 		var layout = {
-			title : 'Mem RAM'
+			title : 'Memoria RAM'
 		};
 		var datz2 = [ linha1, linha2 ];
 		getData();
@@ -111,7 +114,7 @@
 		}, 1000);
 
 		function getData() {
-			var x = $.getJSON("api/memoria", function(data) {
+			var x = $.getJSON("api/memoria?hostName=" + hostName, function(data) {
 				memoria.y = data;
 			});
 		}
@@ -119,39 +122,110 @@
 
 	<script type="text/javascript" th:inline="javascript">
 		var disco = {
-			disco1Livre : 0,
-			disco1Ocupado : 0,
-			disco2Livre : 0,
-			disco2Ocupado : 0,
-			disco3Livre : 0,
-			disco3Ocupado : 0,
-			disco4Livre : 0,
-			disco4Ocupado : 0,
-			disco5Livre : 0,
-			disco5Ocupado : 0,
-			disco6Livre : 0,
-			disco6Ocupado : 0			
+			disco1Livre : 1,
+			disco1Ocupado : 1,
+			disco2Livre : 1,
+			disco2Ocupado : 1,
+			disco3Livre : 1,
+			disco3Ocupado : 1,
+			disco4Livre : 1,
+			disco4Ocupado : 1,
+			disco5Livre : 1,
+			disco5Ocupado : 1,
+			disco6Livre : 1,
+			disco6Ocupado : 1			
 		};
+		
+		
 
 		var datz = [ {
-			values : [ disco.disco1Livre, disco.disco1Ocupado, disco.disco2Livre, disco.disco2Ocupado, disco.disco3Livre, disco.disco3Ocupado, disco.disco4Livre, disco.disco4Ocupado, disco.disco5Livre, disco.disco5Ocupado, disco.disco6Livre, disco.disco6Ocupado ],
-			labels : [ 'Disco Livre', 'Disco Ocupado' ],
+			values : [ disco.disco1Livre, disco.disco1Ocupado],
+			labels : [ 'Disco Livre1', 'Disco Ocupado1' ],
 			type : 'pie',
 			textinfo : "percent",
 			hoverinfo : 'label+value',
 			marker : {
-				colors : [ '#2ED069', 'D02E4E', 'AB00D5', 'C6F700', '5381EC', 'F9B836', 'DC75EC', 'FBFF69', '71ECB3', 'F7A757', 'F75757', '3ABF47']
-			}
-		} ];
+				colors : [ '2ED069', 'D02E4E']
+			},
+		  	domain: {
+			    row: 0,
+			    column: 0
+			},
+		},{
+			values : [ disco.disco2Livre, disco.disco2Ocupado],
+			labels : [ 'Disco Livre2', 'Disco Ocupado2' ],
+			type : 'pie',
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : ['AB00D5', 'C6F700']
+			},
+		  	domain: {
+			    row: 0,
+			    column: 1
+			},
+		},{
+			values : [ disco.disco3Livre, disco.disco3Ocupado],
+			labels : [ 'Disco Livre3', 'Disco Ocupado3' ],
+			type : 'pie',
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : [ '5381EC', 'F9B836']
+			},
+		  	domain: {
+			    row: 0,
+			    column: 2
+			},
+		},{
+			values : [ disco.disco4Livre, disco.disco4Ocupado],
+			labels : [ 'Disco Livre4', 'Disco Ocupado4' ],
+			type : 'pie',
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : [ 'DC75EC', 'FBFF69']
+			},
+		  	domain: {
+			    row: 1,
+			    column: 0
+			},
+		},{
+			values : [ disco.disco5Livre, disco.disco5Ocupado],
+			labels : [ 'Disco Livre5', 'Disco Ocupado5' ],
+			type : 'pie',
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : ['71ECB3', 'F7A757']
+			},
+		  	domain: {
+			    row: 1,
+			    column: 1
+			},
+		},{
+			values : [ disco.disco6Livre, disco.disco6Ocupado ],
+			labels : [ 'Disco Livre6', 'Disco Ocupado6' ],
+			type : 'pie',
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : [ 'F75757', '3ABF47']
+			},
+		  	domain: {
+			    row: 1,
+			    column: 2
+			},
+		},
+		
+		];
 		var layout = {
-			title : 'Disco'
+			title : 'Disco',
+			grid: {rows: 2, columns: 3}
 		};
 		getData();
 		Plotly.newPlot('grafico_disco', datz, layout);
-		setInterval(function() {
-			getData();
-			Plotly.newPlot('grafico_disco', datz, layout);
-		}, 1000);
+
 
 		function getData() {
 
@@ -172,7 +246,7 @@
 		var linha1 = {
 			y : [ memoria.y ],
 			mode : 'lines+markers',
-			name : 'a',
+			name : '% uso da CPU',
 			type : 'line'
 		}
 		var linha2 = {
@@ -184,7 +258,7 @@
 			name : ''
 		}
 		var layout = {
-			title : '% Mem RAM'
+			title : 'CPU'
 		}
 		var datz2 = [ linha1, linha2 ];
 		getData();
@@ -206,7 +280,7 @@
 		}, 10000);
 
 		function getData() {
-			var x = $.getJSON("api/memoria", function(data) {
+			var x = $.getJSON("api/processador?hostName=" + hostName, function(data) {
 				memoria.y = data;
 			});
 		}
@@ -220,7 +294,7 @@
 		var linha1 = {
 			y : [ memoria.y ],
 			mode : 'lines+markers',
-			name : 'a',
+			name : 'Taxa de tranferencia da rede',
 			type : 'line'
 		}
 		var linha2 = {
@@ -232,7 +306,7 @@
 			name : ''
 		}
 		var layout = {
-			title : ''
+			title : 'Rede'
 		}
 		var datz2 = [ linha1, linha2 ];
 		getData();

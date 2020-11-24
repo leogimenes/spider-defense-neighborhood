@@ -3,6 +3,7 @@ package spiderdefenseneighborhood.sdnweb.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jcraft.jsch.Session;
@@ -22,7 +23,7 @@ public class RestControllerAPI {
 
 
 	@GetMapping("/api/memoria")
-	public Integer buscaMemoria() {
+	public Integer buscaMemoria(@RequestParam(value="hostName") String host) {
 
 		Session session = SessionFactory.CreateSession();
 		try {

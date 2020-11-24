@@ -13,9 +13,12 @@ public class WebController {
 	public ModelAndView index(ModelAndView map) {
 		map = new ModelAndView("dashboard");
 		
-		Memoria mem = new Memoria();
-		Double numero = mem.getUsoMemoria();
-		map.addObject("numero", numero);
+		return map;
+	}
+	
+	@GetMapping(value = {"/dispositivos"})
+	public ModelAndView dispositivos (ModelAndView map) {
+		map = new ModelAndView("dispositivos");
 		
 		return map;
 	}

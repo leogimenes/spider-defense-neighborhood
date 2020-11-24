@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"
+>
+<script src="webjars/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+>
+<link rel="stylesheet" th:href="@{/assets/style.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+>
+<script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
+<script src="webjars/jquery/3.1.1/jquery.js"></script>
+<title>Dispositivos</title>
+
+</head>
+<body>
+
+	<div class="wrapper">
+
+		<div th:insert="sidebar"></div>
+
+		<div th:insert="botaoSidebar"></div>
+		<div class="aba">
+			<div class="row">
+				
+					<div class="devices-list">
+						<ul>
+							<li><a href="#"><i class="fa fa-wifi fa-3x"></i>router1</a> <i id="status-router1" class="fa fa-circle fa-2x devices-status"></i> </li> 
+							<li><a href="#"><i class="fa fa-server fa-3x"></i>switch1</a> <i id="status-switch1" class="fa fa-circle fa-2x devices-status"></i> </li> 
+							<li><a href="#"><i class="fa fa-server fa-3x"></i>oob-server</a> <i id="status-oob-server" class="fa fa-circle fa-2x devices-status"></i> </li> 
+							<li><a href="#"><i class="fa fa-server fa-3x"></i>oob-switch</a> <i id="status-oob-switch" class="fa fa-circle fa-2x devices-status"></i> </li> 
+							<li><a href="#"><i class="fa fa-desktop fa-3x"></i>swp1</a> <i id="status-swp1" class="fa fa-circle fa-2x devices-status"></i> </li> 
+						</ul>
+					</div>
+				
+
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" th:inline="javascript">
+		
+	
+		var status = "";
+		
+		getStatus();
+		
+		function getStatus() {
+			$.get("api/status", function(data){
+				console.log(status);
+				status = data;
+			});
+		}
+		
+		setInterval(function(){
+			getStatus();
+			if(status=="offline"){
+				document.getElementById("status-router1").style.color = "red";
+			}
+		}, 5000);
+	
+	</script>
+
+</body>
+</html>

@@ -19,7 +19,7 @@
 >
 <script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
 <script src="webjars/jquery/3.1.1/jquery.js"></script>
-<title>Side bar</title>
+<title>DashBoard</title>
 
 </head>
 <body>
@@ -74,22 +74,22 @@
 			mode : 'lines+markers',
 			name : 'aa caraio',
 			type : 'line',
-			line: {
-			    color: 'rgb(0, 0, 0)',
+			line : {
+				color : 'rgb(0, 0, 0)',
 			}
 		};
 		var linha2 = {
-			y : [0],
+			y : [ 0 ],
 			mode : 'lines',
-			line: {
-				color: 'white',
+			line : {
+				color : 'white',
 			},
 			name : ''
 		}
 		var layout = {
 			title : 'Mem RAM'
 		};
-		var datz2 = [ linha1,linha2 ];
+		var datz2 = [ linha1, linha2 ];
 		getData();
 		Plotly.newPlot('grafico_memoria', datz2, layout);
 		var cnt = 0;
@@ -125,16 +125,16 @@
 			discoOcupado : 90,
 		};
 
-		var datz = [{
-			values :[disco.discoLivre, disco.discoOcupado],
-			labels : ['Disco Livre', 'Disco Ocupado'],
+		var datz = [ {
+			values : [ disco.discoLivre, disco.discoOcupado ],
+			labels : [ 'Disco Livre', 'Disco Ocupado' ],
 			type : 'pie',
-			textinfo: "percent",
-			hoverinfo: 'label+value',
-			marker: {
-			    colors: ['#2ED069','D02E4E']
-			 }
-		}];
+			textinfo : "percent",
+			hoverinfo : 'label+value',
+			marker : {
+				colors : [ '#2ED069', 'D02E4E' ]
+			}
+		} ];
 		var layout = {
 			title : 'Disco'
 		};
@@ -167,17 +167,17 @@
 			type : 'line'
 		}
 		var linha2 = {
-				y : [0],
-				mode : 'lines',
-				line: {
-					color: 'white',
-				},
-				name : ''
-			}
+			y : [ 0 ],
+			mode : 'lines',
+			line : {
+				color : 'white',
+			},
+			name : ''
+		}
 		var layout = {
 			title : '% Mem RAM'
 		}
-		var datz2 = [ linha1,linha2 ];
+		var datz2 = [ linha1, linha2 ];
 		getData();
 		Plotly.newPlot('grafico_cpu', datz2, layout);
 		var cnt3 = 0;
@@ -219,17 +219,17 @@
 			type : 'line'
 		}
 		var linha2 = {
-				y : [0],
-				mode : 'lines',
-				line: {
-					color: 'white',
-				},
-				name : ''
-			}
+			y : [ 0 ],
+			mode : 'lines',
+			line : {
+				color : 'white',
+			},
+			name : ''
+		}
 		var layout = {
 			title : ''
 		}
-		var datz2 = [ linha1,linha2 ];
+		var datz2 = [ linha1, linha2 ];
 		getData();
 		Plotly.newPlot('grafico_rede', datz2, layout);
 		var cnt4 = 0;

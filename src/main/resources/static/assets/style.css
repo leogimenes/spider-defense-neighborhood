@@ -1,115 +1,145 @@
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
-*{
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
+@import
+	url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
 }
 
-body{
-    background: #353535;
-    font-family: 'Ubuntu', sans-serif;
-
+body {
+	background: #353535;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-    
+	display: flex;
+	width: 100%;
+	align-items: stretch;
 }
 
 a, a:hover, a:focus {
-
-    text-decoration: none;
-    transition: all 0.3s;
-    border-bottom: 3px solid rgb(255,255,255,.1)
-
+	text-decoration: none;
+	transition: all 0.3s;
+	
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-    background: #575757;
-    color: white;
-    transition: all 0.3s;
+	min-width: 250px;
+	max-width: 250px;
+	min-height: 100vh;
+	background: #575757;
+	color: white;
+	transition: all 0.3s;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+	margin-left: -250px;
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    text-align: center;
-    background: #353535;
+	padding: 20px;
+	text-align: center;
+	background: #353535;
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-
+	padding: 20px 0;
 }
 
 #sidebar ul p {
-    color: #fff;
-    padding: 10px;
+	color: #fff;
+	padding: 10px;
 }
 
 #sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
-    display: block;
-    color: white;
+	padding: 10px;
+	font-size: 1.1em;
+	display: block;
+	color: white;
+	border-bottom: 3px solid rgb(255, 255, 255, .1)
 }
+
 #sidebar ul li a:hover {
-    padding-left: 20px;
+	padding-left: 20px;
 }
 
 #sidebar ul li a i {
-    padding-right: 5px;
+	padding-right: 5px;
 }
 
 #sidebarCollapse {
-   width: 40px;
-   height: 40px;
-   background: #f5f5f5;
+	width: 40px;
+	height: 40px;
+	background: #f5f5f5;
+}
+
+.aba{
+	padding-left: 100px;
+	padding-top: 100px;
+}
+
+
+
+
+.devices-list ul li a i {
+	padding-right: 10px;
+}
+
+#status-router1{
+	color: green;
+}
+
+#status-switch1{
+	color: green;
+}
+
+#status-oob-server{
+	color: green;
+}
+
+#status-oob-switch{
+	color: green;
+}
+
+#status-swp1{
+	color: green;
 }
 
 .grafico {
-    padding: 25px;
-    width: 500px;
-    height: 400px;
+	padding: 25px;
+	width: 500px;
+	height: 400px;
 }
 
 ul ul a {
-    font-size: 0.9em !important;
-    padding-left: 30px !important;
-    background: #6d7fcc;
+	font-size: 0.9em !important;
+	padding-left: 30px !important;
+	background: #6d7fcc;
 }
 
-@media (min-width: 700px) {
-    #sidebar {
-        margin-left: 0;
-    }
-    #sidebar.active {
-        margin-left: -250px;
-    }
+@media all and (min-width: 800px) {
+	#sidebar {
+		margin-left: 0;
+	}
+	#sidebar.active {
+		margin-left: -250px;
+	}
 	.grafico-lg {
 		padding: 25px;
-    	width: 100%;
-    	height: 400px;
+		width: 100%;
+		height: 400px;
 	}
-
 }
 
-@media (min-width: 1000px){
+@media all and (min-width: 1000px) {
 	.col-xl {
 		padding: 25px;
-    	width: 100%;
-    	height: 400px;
+		width: 100%;
+		height: 400px;
 	}
-
 }

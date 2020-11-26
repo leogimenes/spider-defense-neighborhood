@@ -13,9 +13,11 @@ import spiderdefenseneighborhood.sdnweb.service.NewChannel;
 import spiderdefenseneighborhood.sdnweb.service.Oid;
 import spiderdefenseneighborhood.sdnweb.service.SessionFactory;
 import spiderdefenseneighborhood.sdnweb.snmptranslator.SelectorI;
+import spiderdefenseneighborhood.sdnweb.snmptranslator.SelectorS;
 import spiderdefenseneighborhood.sdnweb.snmptranslator.SnmpToInteger;
 import spiderdefenseneighborhood.sdnweb.snmptranslator.SnmpToJava;
 import spiderdefenseneighborhood.sdnweb.snmptranslator.SnmpToJavaTable;
+import spiderdefenseneighborhood.sdnweb.snmptranslator.SnmpToString;
 import spiderdefenseneighborhood.sdnweb.snmptranslator.TableInterpreter;
 
 @RestController
@@ -23,7 +25,7 @@ public class RestControllerAPI {
 
 
 	@GetMapping("/api/memoria")
-	public Integer buscaMemoria(@RequestParam(value="hostName") String host) {
+	public Integer buscaMemoria(@RequestParam(value="hostName", required = false) String host) {
 
 		Session session = SessionFactory.CreateSession();
 		try {
@@ -44,13 +46,16 @@ public class RestControllerAPI {
 
 	@GetMapping("/api/processador")
 	public Integer buscaProcessador() {
+		
 		Session session = SessionFactory.CreateSession();
+		
 		try {
-			SnmpToJava stj = new SnmpToInteger(NewChannel.snmpGet(session, "localhost", Oid.CPU_IDLE));
-			SelectorI si = (SelectorI) stj;
+			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.CPU_IDLE));
+			SelectorS si = (SelectorS) stj;
 			session.disconnect();
-
-			return 100-si.getFormated();
+			String s = si.getFormated();
+			Integer.parseInt(s.substring(1));
+			return 100-Integer.parseInt(s.substring(1));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +79,26 @@ public class RestControllerAPI {
 		session.disconnect();
 		return null;
 	}
+	
+	
+	@GetMapping("/api/rede")
+	public Integer buscaRede() {
+		
+		Session session = SessionFactory.CreateSession();
+		
+		try {
+			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.BITS_DOWNLOAD));
+			SelectorS si = (SelectorS) stj;
+			session.disconnect();
+			String s = si.getFormated();
+			return (8*Integer.parseInt(s.substring(1)))/3;
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.disconnect();
+		return null;
+	}
 	
 	@GetMapping("/api/status")
 	public String buscaStatus(){

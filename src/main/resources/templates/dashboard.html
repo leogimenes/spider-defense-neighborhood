@@ -92,7 +92,10 @@
 			name : ''
 		}
 		var layout = {
-			title : 'Memoria RAM'
+			title : 'Memoria RAM',
+			xaxis : {
+				range : [0, 30]
+			}
 		};
 		var datz2 = [ linha1, linha2 ];
 		getData();
@@ -104,10 +107,10 @@
 				y : [ [ memoria.y ] ]
 			}, [ 0 ]);
 			cnt++;
-			if (cnt > 20) {
+			if (cnt > 30) {
 				Plotly.relayout('grafico_memoria', {
 					xaxis : {
-						range : [ cnt - 20, cnt ]
+						range : [ cnt - 30, cnt ]
 					}
 				});
 			}
@@ -184,7 +187,7 @@
 			textinfo : "percent",
 			hoverinfo : 'label+value',
 			marker : {
-				colors : [ 'DC75EC', 'FBFF69']
+				colors : [ 'FFE280', 'FBFF69']
 			},
 		  	domain: {
 			    row: 1,
@@ -210,7 +213,7 @@
 			textinfo : "percent",
 			hoverinfo : 'label+value',
 			marker : {
-				colors : [ 'F75757', '3ABF47']
+				colors : [ '69FA64', '3ABF47']
 			},
 		  	domain: {
 			    row: 1,
@@ -219,32 +222,45 @@
 		},
 		
 		];
-		var layout = {
+		
+		var layoutDisco = {
 			title : 'Disco',
 			grid: {rows: 2, columns: 3}
 		};
 		getData();
-		Plotly.newPlot('grafico_disco', datz, layout);
+		Plotly.newPlot('grafico_disco', datz, layoutDisco);
+		setInterval(function() {
+			getData();
+			Plotly.newPlot('grafico_disco', datz, layoutDisco);
+		},5000);
 
 
 		function getData() {
 
 			var y = $.getJSON("api/disco", function(data) {
-				datz[0].values = [data[0].discoLivre, data[0].discoUsado, data[1].discoLivre, data[1].discoUsado, data[2].discoLivre, data[2].discoUsado, data[3].discoLivre, data[3].discoUsado, data[4].discoLivre, data[4].discoUsado, data[5].discoLivre, data[5].discoUsado];
-				datz[0].labels = ["Livre: " + data[0].partition , "Em uso:" + data[0].partition, "Livre: " + data[1].partition , "Em uso:" + data[1].partition, "Livre: " + data[2].partition , "Em uso:" + data[2].partition, "Livre: " + data[3].partition , "Em uso:" + data[3].partition, "Livre: " + data[4].partition , "Em uso:" + data[4].partition, "Livre: " + data[5].partition , "Em uso:" + data[5].partition];
-				console.log(datz);
+				datz[0].values = [data[0].discoLivre, data[0].discoUsado];
+				datz[1].values = [data[1].discoLivre, data[1].discoUsado];
+				datz[2].values = [data[2].discoLivre, data[2].discoUsado];
+				datz[3].values = [data[3].discoLivre, data[3].discoUsado];
+				datz[4].values = [data[4].discoLivre, data[4].discoUsado];
+				datz[5].values = [data[5].discoLivre, data[5].discoUsado];
+				datz[0].labels = ["Livre: " + data[0].partition , "Em uso: " + data[0].partition];
+				datz[1].labels = ["Livre: " + data[1].partition , "Em uso: " + data[1].partition];
+				datz[2].labels = ["Livre: " + data[2].partition , "Em uso: " + data[2].partition];
+				datz[3].labels = ["Livre: " + data[3].partition , "Em uso: " + data[3].partition];
+				datz[4].labels = ["Livre: " + data[4].partition , "Em uso: " + data[4].partition];
+				datz[5].labels = ["Livre: " + data[5].partition , "Em uso: " + data[5].partition];
 			});
-
 		}
 	</script>
 
 	<script type="text/javascript" th:inline="javascript">
-		var memoria = {
+		var processador = {
 			y : 0,
 		}
 
 		var linha1 = {
-			y : [ memoria.y ],
+			y : [ processador.y ],
 			mode : 'lines+markers',
 			name : '% uso da CPU',
 			type : 'line'
@@ -257,42 +273,46 @@
 			},
 			name : ''
 		}
-		var layout = {
-			title : 'CPU'
+		var layoutProc = {
+			title : 'CPU',
+			xaxis : {
+				range : [0, 30]
+			}
 		}
-		var datz2 = [ linha1, linha2 ];
+		var datzProc = [ linha1, linha2 ];
 		getData();
-		Plotly.newPlot('grafico_cpu', datz2, layout);
+		Plotly.newPlot('grafico_cpu', datzProc, layoutProc);
 		var cnt3 = 0;
 		setInterval(function() {
 			getData();
 			Plotly.extendTraces('grafico_cpu', {
-				y : [ [ memoria.y ] ]
+				y : [ [ processador.y ] ]
 			}, [ 0 ]);
 			cnt3++;
-			if (cnt3 > 20) {
+			if (cnt3 > 30) {
 				Plotly.relayout('grafico_cpu', {
 					xaxis : {
-						range : [ cnt3 - 20, cnt3 ]
+						range : [ cnt3 - 30, cnt3 ]
 					}
 				});
 			}
-		}, 10000);
+		}, 1000);
 
 		function getData() {
-			var x = $.getJSON("api/processador?hostName=" + hostName, function(data) {
-				memoria.y = data;
+			var proc = $.getJSON("api/processador?hostName=" + hostName, function(data) {
+				processador.y = data;
 			});
 		}
 	</script>
 
 	<script type="text/javascript" th:inline="javascript">
-		var memoria = {
+		var rede = {
+			buffer: -1,
 			y : 0,
 		}
 
 		var linha1 = {
-			y : [ memoria.y ],
+			y : [ rede.y ],
 			mode : 'lines+markers',
 			name : 'Taxa de tranferencia da rede',
 			type : 'line'
@@ -305,31 +325,42 @@
 			},
 			name : ''
 		}
-		var layout = {
-			title : 'Rede'
+		var layoutRede = {
+			title : 'Rede',
+			xaxis : {
+				range : [0, 30]
+			}
 		}
-		var datz2 = [ linha1, linha2 ];
-		getData();
-		Plotly.newPlot('grafico_rede', datz2, layout);
+		var datzR = [ linha1, linha2 ];
+		getDataR();
+		Plotly.newPlot('grafico_rede', datzR, layoutRede);
 		var cnt4 = 0;
 		setInterval(function() {
-			getData();
+			getDataR();
+			console.log(rede.y);
 			Plotly.extendTraces('grafico_rede', {
-				y : [ [ memoria.y ] ]
+				y : [ [ rede.y ] ]
 			}, [ 0 ]);
 			cnt4++;
-			if (cnt4 > 20) {
+			if (cnt4 > 30) {
 				Plotly.relayout('grafico_rede', {
 					xaxis : {
-						range : [ cnt4 - 20, cnt4 ]
+						range : [ cnt4 - 30, cnt4 ]
 					}
 				});
 			}
-		}, 10000);
+		}, 3000);
 
-		function getData() {
-			var x = $.getJSON("api/memoria", function(data) {
-				memoria.y = data;
+		function getDataR() {
+			var net = $.getJSON("api/rede", function(data) {
+				if(rede.buffer == -1){
+					rede.buffer = data;
+					rede.y = 0;
+				} else {
+					rede.y = data - rede.buffer;
+					rede.buffer = data;
+				}
+				console.log(rede.y);
 			});
 		}
 	</script>

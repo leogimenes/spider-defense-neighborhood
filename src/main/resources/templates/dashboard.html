@@ -61,7 +61,7 @@
 
 			</div>
 		</div>
-	<h3 th:text="${hostName}" style="color: white;"></h3>
+		<h3 th:text="${hostName}" style="color: white;"></h3>
 	</div>
 
 
@@ -98,11 +98,11 @@
 			}
 		};
 		var datz2 = [ linha1, linha2 ];
-		getData();
+		getDataM();
 		Plotly.newPlot('grafico_memoria', datz2, layout);
 		var cnt = 0;
 		setInterval(function() {
-			getData();
+			getDataM();
 			Plotly.extendTraces('grafico_memoria', {
 				y : [ [ memoria.y ] ]
 			}, [ 0 ]);
@@ -116,7 +116,7 @@
 			}
 		}, 1000);
 
-		function getData() {
+		function getDataM() {
 			var x = $.getJSON("api/memoria?hostName=" + hostName, function(data) {
 				memoria.y = data;
 			});
@@ -227,15 +227,15 @@
 			title : 'Disco',
 			grid: {rows: 2, columns: 3}
 		};
-		getData();
+		getDataD();
 		Plotly.newPlot('grafico_disco', datz, layoutDisco);
 		setInterval(function() {
-			getData();
+			getDataD();
 			Plotly.newPlot('grafico_disco', datz, layoutDisco);
 		},5000);
 
 
-		function getData() {
+		function getDataD() {
 
 			var y = $.getJSON("api/disco", function(data) {
 				datz[0].values = [data[0].discoLivre, data[0].discoUsado];
@@ -280,11 +280,11 @@
 			}
 		}
 		var datzProc = [ linha1, linha2 ];
-		getData();
+		getDataP();
 		Plotly.newPlot('grafico_cpu', datzProc, layoutProc);
 		var cnt3 = 0;
 		setInterval(function() {
-			getData();
+			getDataP();
 			Plotly.extendTraces('grafico_cpu', {
 				y : [ [ processador.y ] ]
 			}, [ 0 ]);
@@ -298,7 +298,7 @@
 			}
 		}, 1000);
 
-		function getData() {
+		function getDataP() {
 			var proc = $.getJSON("api/processador?hostName=" + hostName, function(data) {
 				processador.y = data;
 			});
@@ -306,27 +306,30 @@
 	</script>
 
 	<script type="text/javascript" th:inline="javascript">
-		var rede = {
-			buffer: -1,
+		var down = {
+			bufferDown: -1,
 			y : 0,
+		}
+		
+		var up = {
+			bufferUp: -1,
+			y : 0
 		}
 
 		var linha1 = {
-			y : [ rede.y ],
+			y : [ down.y ],
 			mode : 'lines+markers',
-			name : 'Taxa de tranferencia da rede',
+			name : 'Download(bps)',
 			type : 'line'
 		}
 		var linha2 = {
-			y : [ 0 ],
-			mode : 'lines',
-			line : {
-				color : 'white',
-			},
-			name : ''
+			y : [ up.y ],
+			mode : 'lines+markers',
+			name : 'Upload(bps)',
+			type : 'line'
 		}
 		var layoutRede = {
-			title : 'Rede',
+			title : 'Taxa de tranferência',
 			xaxis : {
 				range : [0, 30]
 			}
@@ -337,10 +340,9 @@
 		var cnt4 = 0;
 		setInterval(function() {
 			getDataR();
-			console.log(rede.y);
 			Plotly.extendTraces('grafico_rede', {
-				y : [ [ rede.y ] ]
-			}, [ 0 ]);
+				y : [ [ down.y ], [ up.y ] ]
+			}, [ 0, 1 ]);
 			cnt4++;
 			if (cnt4 > 30) {
 				Plotly.relayout('grafico_rede', {
@@ -352,15 +354,21 @@
 		}, 3000);
 
 		function getDataR() {
-			var net = $.getJSON("api/rede", function(data) {
-				if(rede.buffer == -1){
-					rede.buffer = data;
-					rede.y = 0;
+			var net = $.getJSON("api/rede?hostName=" + hostName, function(data) {
+				if(down.bufferDown == -1){
+					down.bufferDown = data.download;
+					down.y = 0;
 				} else {
-					rede.y = data - rede.buffer;
-					rede.buffer = data;
+					down.y = data.download - down.bufferDown;
+					down.bufferDown = data.download;
 				}
-				console.log(rede.y);
+				if(up.bufferUp == -1){
+					up.bufferUp = data.upload;
+					up.y = 0;
+				} else {
+					up.y = data.upload - up.bufferUp;
+					up.bufferUp = data.upload;
+				}
 			});
 		}
 	</script>

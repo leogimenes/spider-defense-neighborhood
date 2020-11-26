@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jcraft.jsch.Session;
 
 import spiderdefenseneighborhood.sdnweb.model.Disco;
+import spiderdefenseneighborhood.sdnweb.model.Rede;
 import spiderdefenseneighborhood.sdnweb.service.NewChannel;
 import spiderdefenseneighborhood.sdnweb.service.Oid;
 import spiderdefenseneighborhood.sdnweb.service.SessionFactory;
@@ -82,16 +83,21 @@ public class RestControllerAPI {
 	
 	
 	@GetMapping("/api/rede")
-	public Integer buscaRede() {
+	public Rede buscaRede() {
 		
 		Session session = SessionFactory.CreateSession();
 		
 		try {
 			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.BITS_DOWNLOAD));
+			SnmpToJava stj2 = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.BITS_UPLOAD));
 			SelectorS si = (SelectorS) stj;
+			SelectorS si2 = (SelectorS) stj2;
 			session.disconnect();
 			String s = si.getFormated();
-			return (8*Integer.parseInt(s.substring(1)))/3;
+			String s1 = si2.getFormated();
+			Integer r = (8*Integer.parseInt(s.substring(1)))/3;
+			Integer r1 = (8*Integer.parseInt(s1.substring(1)))/3;
+			return new Rede(r, r1);
 
 		} catch (Exception e) {
 			e.printStackTrace();

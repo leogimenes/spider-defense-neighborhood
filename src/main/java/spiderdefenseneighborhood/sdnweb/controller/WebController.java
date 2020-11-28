@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class WebController {
 	
 	@GetMapping(value = {"/", "/dashboard"})
-	public ModelAndView index(@RequestParam(value="hostName",defaultValue = "oob-server") String host,ModelAndView map) {
+	public ModelAndView index(@RequestParam(value="hostName",defaultValue = "oobmgmtserver") String host,ModelAndView map) {
 		map = new ModelAndView("dashboard");
 		map.addObject("hostName", host);
 		

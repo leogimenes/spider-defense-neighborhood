@@ -30,8 +30,8 @@ public class RestControllerAPI {
 
 		Session session = SessionFactory.CreateSession();
 		try {
-			SnmpToJava stj = new SnmpToInteger(NewChannel.snmpGet(session, "localhost", Oid.MEMORIA_LIVRE));
-			SnmpToJava stj2 = new SnmpToInteger(NewChannel.snmpGet(session, "localhost", Oid.MEMORIA_TOTAL));
+			SnmpToJava stj = new SnmpToInteger(NewChannel.snmpGet(session, host, Oid.MEMORIA_LIVRE));
+			SnmpToJava stj2 = new SnmpToInteger(NewChannel.snmpGet(session, host, Oid.MEMORIA_TOTAL));
 			SelectorI si = (SelectorI) stj;
 			SelectorI si2 = (SelectorI) stj2;
 			session.disconnect();
@@ -46,12 +46,12 @@ public class RestControllerAPI {
 	}
 
 	@GetMapping("/api/processador")
-	public Integer buscaProcessador() {
+	public Integer buscaProcessador(@RequestParam(value="hostName", required = false) String host) {
 		
 		Session session = SessionFactory.CreateSession();
 		
 		try {
-			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.CPU_IDLE));
+			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, host, Oid.CPU_IDLE));
 			SelectorS si = (SelectorS) stj;
 			session.disconnect();
 			String s = si.getFormated();
@@ -66,10 +66,10 @@ public class RestControllerAPI {
 	}
 
 	@GetMapping("/api/disco")
-	public List<Disco> buscaDisco() {
+	public List<Disco> buscaDisco(@RequestParam(value="hostName", required = false) String host) {
 		Session session = SessionFactory.CreateSession();
 		try {
-			SnmpToJavaTable stj = new SnmpToJavaTable(NewChannel.snmpTable(session, "localhost", Oid.HR_STORAGE_TABLE));
+			SnmpToJavaTable stj = new SnmpToJavaTable(NewChannel.snmpTable(session, host, Oid.HR_STORAGE_TABLE));
 			session.disconnect();
 
 			return TableInterpreter.clearDisk(stj);
@@ -83,13 +83,13 @@ public class RestControllerAPI {
 	
 	
 	@GetMapping("/api/rede")
-	public Rede buscaRede() {
+	public Rede buscaRede(@RequestParam(value="hostName", required = false) String host) {
 		
 		Session session = SessionFactory.CreateSession();
 		
 		try {
-			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.BITS_DOWNLOAD));
-			SnmpToJava stj2 = new SnmpToString(NewChannel.snmpGet(session, "localhost", Oid.BITS_UPLOAD));
+			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, host, Oid.INIFOCTETS));
+			SnmpToJava stj2 = new SnmpToString(NewChannel.snmpGet(session, host, Oid.IFOUTOCTETS));
 			SelectorS si = (SelectorS) stj;
 			SelectorS si2 = (SelectorS) stj2;
 			session.disconnect();

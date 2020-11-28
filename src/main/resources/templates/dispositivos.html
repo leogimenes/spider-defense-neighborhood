@@ -29,22 +29,57 @@
 		<div th:insert="sidebar"></div>
 
 		<div th:insert="botaoSidebar"></div>
-		<div class="aba">
 			<div class="row">
 				
-					<div class="devices-list">
-						<ul>
-							<li><a href="/dashboard?hostName=router1"><i class="fa fa-wifi fa-3x"></i>router1</a> <i id="status-router1" class="fa fa-circle fa-2x devices-status"></i> </li> 
-							<li><a href="/dashboard?hostName=switch1"><i class="fa fa-server fa-3x"></i>switch1</a> <i id="status-switch1" class="fa fa-circle fa-2x devices-status"></i> </li> 
-							<li><a href="/dashboard?hostName=oob-server1"><i class="fa fa-server fa-3x"></i>oobmgmtserver</a> <i id="status-oob-server" class="fa fa-circle fa-2x devices-status"></i> </li> 
-							<li><a href="/dashboard?hostName=oob-switch1"><i class="fa fa-server fa-3x"></i>oobmgmtswitch</a> <i id="status-oob-switch" class="fa fa-circle fa-2x devices-status"></i> </li> 
-							<li><a href="/dashboard?hostName=swp1"><i class="fa fa-desktop fa-3x"></i>client1</a> <i id="status-swp1" class="fa fa-circle fa-2x devices-status"></i> </li> 
-						</ul>
-					</div>
+					<svg width="1000" height="1000">
+						<a href="INSERIR LINK AQUI" target="_blank">	
+						</a>
+						<text x="108" y="142" fill="white">router</text>
+					 	<text x="680" y="150" fill="white">oobmgmtserver</text>
+					  	<text x="665" y="420" fill="white">oobmgmtswtich</text>
+						<text x="100" y="420" fill="white">switch1</text>
+						<text x="120" y="675" fill="white" >client1</text>
+				
+						<a href="INSERIR LINK AQUI(MSM QUE O CLIENTE)" target="_blank">
+						<rect x="119" y="600" width="72" height="50" style="stroke:rgb(0, 0, 0);stroke-width:3;fill-opacity:0.1;stroke-opacity:2.5" />
+						</a>
+						<a href="INSERIR LINK AQUI(Switch)" target="_blank">
+							<svg height="100" viewBox="0 0 24 24" x="90" y="320" width="125"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20  "/></svg>	
+						</a>
+						<a href="INSERIR LINK AQUI(Swtich)" target="_blank">		
+							<svg height="100" viewBox="0 0 24 24" x="650" y="320" width="125"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20  "/></svg>	
+						</a>		
+						<a href="INSERIR LINK AQUI(MESMO QUE O QUADRADO)" target="_blank">		
+							<svg height="100" viewBox="0 0 24 24" width="100" x="105" y="580" ><g><path d="M0 0h24v24H0z" fill="none"/><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></g></svg>
+						</a>
+					
+						<a href="INSERIR LINK AQUI(SERVER)" target="_blank">	
+							<svg height="100" viewBox="0 0 24 24" width="100" x="665" y="50"><path d="M0 0h24v24H0z" fill="none"/><path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/></svg>
+						</a>
+						<a href="INSERIR LINK AQUI(ROUTER)" target="_blank">		
+							<svg height="100" viewBox="0 0 24 24" width="100" x="100" y="40"><path d="M0 0h24v24H0z" fill="none"/><path d="M20.2 5.9l.8-.8C19.6 3.7 17.8 3 16 3s-3.6.7-5 2.1l.8.8C13 4.8 14.5 4.2 16 4.2s3 .6 4.2 1.7zm-.9.8c-.9-.9-2.1-1.4-3.3-1.4s-2.4.5-3.3 1.4l.8.8c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1l.8-.8zM19 13h-2V9h-2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 18H6v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2z"/></svg>
+						</a>	
+				
+					  <line x1="715" y1="160" x2="715" y2="370" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+					  <line x1="155" y1="160" x2="155" y2="370" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+					  <line x1="205" y1="115" x2="662" y2="378" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+					  <line x1="200" y1="390" x2="660" y2="396" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+					  <line x1="155" y1="430" x2="155" y2="590" style="stroke:rgb(0, 0, 0);stroke-width:2" />
+					  
+					  <circle cx="155" cy="153" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="155" cy="362" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="715" cy="365" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="715" cy="162" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="200" cy="115" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="662" cy="378" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="200" cy="390" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="662" cy="396" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="155" cy="432" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />
+					  <circle cx="155" cy="588" r="7" stroke="black" stroke-width="3" fill="rgb(0, 255, 0)" />  		
+				</svg>
 				
 
 			</div>
-		</div>
 	</div>
 	
 	<script type="text/javascript" th:inline="javascript">

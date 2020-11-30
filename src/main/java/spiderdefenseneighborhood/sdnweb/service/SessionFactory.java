@@ -5,8 +5,11 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
 
 public class SessionFactory {
+	@SuppressWarnings("unused")
+	private static SessionFactory instance;
+	private static Session session;
 	
-	public static Session CreateSession() {
+	private SessionFactory() {
 		try{
 			JSch jsch=new JSch();  
 
@@ -15,16 +18,22 @@ public class SessionFactory {
 			String user=host.substring(0, host.indexOf('@'));
 			host=host.substring(host.indexOf('@')+1);
 
-			Session session=jsch.getSession(user, host, 22);
+			session=jsch.getSession(user, host, 22);
 
 			UserInfo ui=new MyUserInfo();
 			session.setUserInfo(ui);
 			session.connect();
-			return session;
 		}
 		catch(Exception e){
 			System.out.println(e);
 		}
-		return null;
 	}
+	
+	public static Session getInstance() {
+		if (session == null) {
+			instance = new SessionFactory();
+		}
+		return session;
+	}
+	
 }

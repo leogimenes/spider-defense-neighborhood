@@ -8,7 +8,8 @@ public class SnmpToString extends SnmpToJava implements SelectorS {
 
 	@Override
 	public String getFormated() {
-		return getEntry().substring(getEntry().indexOf(':')+1, getEntry().length()-1);
+		String s = getEntry().replace(" ", "");
+		return s.substring(s.indexOf(':'), s.length()-1);
 	}
 
 }

@@ -1,8 +1,5 @@
 package spiderdefenseneighborhood.sdnweb.service;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -17,7 +14,7 @@ public class MyUserInfo implements UserInfo, UIKeyboardInteractive{
 		return foo==0;
 	}
 
-	String passwd;
+	String passwd = "dn14q8m6";
 	JTextField passwordField=(JTextField)new JPasswordField(20);
 
 	public String getPassphrase(){ return null; }
@@ -25,17 +22,12 @@ public class MyUserInfo implements UserInfo, UIKeyboardInteractive{
 	public boolean promptPassphrase(String message){ return true; }
 
 	public boolean promptPassword(String message){    	
-		passwd = "dn14q8m6";
 		return true;
 	}
 	public void showMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
 	}
-	final GridBagConstraints gbc = 
-			new GridBagConstraints(0,0,1,1,1,1,
-					GridBagConstraints.NORTHWEST,
-					GridBagConstraints.NONE,
-					new Insets(0,0,0,0),0,0);
+
 
 	@Override
 	public String[] promptKeyboardInteractive(String destination, String name, String instruction, String[] prompt,

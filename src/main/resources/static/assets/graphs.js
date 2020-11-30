@@ -27,6 +27,7 @@
 			}
 		};
 		var datz2 = [ linha1, linha2 ];
+		console.log(datz2);
 		getDataM();
 		Plotly.newPlot('grafico_memoria', datz2, layout);
 		var cnt = 0;

@@ -71,9 +71,14 @@ public class RestControllerAPI {
 
 	@GetMapping("/api/disco")
 	public List<Disco> buscaDisco(@RequestParam(value="hostName", required = false) String host) {
+		/* Busca informações de armazenamento no servidor SNMP e retorna um objeto json para o script js
+		 * * 
+		 * */
 		try {
+			// Envia uma solicitação ao servidor SNMP e atribui o retorno a uma classe capaz de interpretá-lo
 			SnmpToJavaTable stj = new SnmpToJavaTable(NewChannel.snmpTable(SessionFactory.getInstance(), host, Oid.HR_STORAGE_TABLE));
-
+			/*
+			 * */
 			return TableInterpreter.clearDisk(stj);
 
 		} catch (Exception e) {
@@ -85,12 +90,17 @@ public class RestControllerAPI {
 
 	@GetMapping("/api/rede")
 	public Rede buscaRede(@RequestParam(value="hostName", required = false) String host) {
-
-		Session session = SessionFactory.getInstance();
-
+		/* Busca informações de rede no servidor SNMP e retorna um objeto json para o script js
+		 * * 
+		 * */
 		try {
-			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(session, host, Oid.INIFOCTETS));
-			SnmpToJava stj2 = new SnmpToString(NewChannel.snmpGet(session, host, Oid.IFOUTOCTETS));
+			// Envia uma solicitação ao servidor SNMP e atribui o retorno a uma classe capaz de interpretá-lo
+			SnmpToJava stj = new SnmpToString(NewChannel.snmpGet(SessionFactory.getInstance(), host, Oid.INIFOCTETS));
+			SnmpToJava stj2 = new SnmpToString(NewChannel.snmpGet(SessionFactory.getInstance(), host, Oid.IFOUTOCTETS));
+			
+			/* Aplica um casting aos objetos de retorno do SNMP para utilizar os métodos que os traduzem para o java 
+			 * Remove informações inúteis do retorno
+			 * */
 			SelectorS si = (SelectorS) stj;
 			SelectorS si2 = (SelectorS) stj2;
 			String s = si.getFormated();
@@ -112,14 +122,14 @@ public class RestControllerAPI {
 	 * }
 	 */
 	
-	@GetMapping("/api/teste")
+	@GetMapping("/api/status")
 	public List<Status> teste() {
 		try {
+			
 			SnmpToJava stj = new LldpToString(NewChannel.getLldp(SessionFactory.getInstance()));
 			LldpSelector ls = (LldpSelector) stj;
 			SnmpToJava stj2 = new SnmpToList(NewChannel.snmpWalk(SessionFactory.getInstance(), ls.getFormated(), Oid.LLDP));
 			HostSelector hs = (HostSelector) stj2;
-			System.out.println("Lldp query");
 			List<Lldp> lldp = hs.getFormated();
 			lldp.add(ls.getFormated());
 			SnmpToJava stj3;
@@ -136,7 +146,6 @@ public class RestControllerAPI {
 				status.setHost(l.getHost());
 				listStatus.add(status);
 			}
-			System.out.println(listStatus);
 			return listStatus;
 			
 		} catch (Exception e) {

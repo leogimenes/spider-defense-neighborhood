@@ -24,10 +24,12 @@
 			title : 'Memoria RAM',
 			xaxis : {
 				range : [0, 30]
+			},
+			yaxis : {
+				range: [0, 100]
 			}
 		};
 		var datz2 = [ linha1, linha2 ];
-		console.log(datz2);
 		getDataM();
 		Plotly.newPlot('grafico_memoria', datz2, layout);
 		var cnt = 0;
@@ -72,7 +74,7 @@
 		
 		
 
-		var datz = [ {
+		let datz = [ {
 			values : [ disco.disco1Livre, disco.disco1Ocupado],
 			labels : [ 'Disco', 'Disco' ],
 			type : 'pie',
@@ -158,29 +160,23 @@
 			title : 'Disco',
 			grid: {rows: 2, columns: 3}
 		};
+		
 		getDataD();
-		Plotly.newPlot('grafico_disco', datz, layoutDisco);
+		
 		setInterval(function() {
 			getDataD();
-			Plotly.newPlot('grafico_disco', datz, layoutDisco);
-		},10000);
-
+			
+		},5000);
 
 		function getDataD() {
 
 			$.getJSON("api/disco?hostName=" + hostName, function(data) {
-				datz[0].values = [data[0].discoLivre, data[0].discoUsado];
-				datz[1].values = [data[1].discoLivre, data[1].discoUsado];
-				datz[2].values = [data[2].discoLivre, data[2].discoUsado];
-				datz[3].values = [data[3].discoLivre, data[3].discoUsado];
-				datz[4].values = [data[4].discoLivre, data[4].discoUsado];
-				datz[5].values = [data[5].discoLivre, data[5].discoUsado];
-				datz[0].labels = ["Livre: " + data[0].partition , "Em uso: " + data[0].partition];
-				datz[1].labels = ["Livre: " + data[1].partition , "Em uso: " + data[1].partition];
-				datz[2].labels = ["Livre: " + data[2].partition , "Em uso: " + data[2].partition];
-				datz[3].labels = ["Livre: " + data[3].partition , "Em uso: " + data[3].partition];
-				datz[4].labels = ["Livre: " + data[4].partition , "Em uso: " + data[4].partition];
-				datz[5].labels = ["Livre: " + data[5].partition , "Em uso: " + data[5].partition];
+				for(let diskindex in data){
+					datz[diskindex].values = [data[diskindex].discoLivre, data[diskindex].discoUsado];
+					datz[diskindex].labels = ["Livre: " + data[diskindex].partition , "Em uso: " + data[diskindex].partition];
+				}
+				
+				Plotly.newPlot('grafico_disco', datz, layoutDisco);
 			});
 		}
 		
@@ -210,6 +206,9 @@
 			title : 'CPU',
 			xaxis : {
 				range : [0, 30]
+			},
+			yaxis : {
+				range : [0, 100]
 			}
 		}
 		var datzProc = [ linha1, linha2 ];
@@ -266,6 +265,9 @@
 			title : 'Taxa de tranferência',
 			xaxis : {
 				range : [0, 30]
+			},
+			yaxis : {
+				constrain : "range"
 			}
 		}
 		var datzR = [ linha1, linha2 ];

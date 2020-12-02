@@ -15,14 +15,12 @@ public class SnmpToList extends SnmpToJava implements HostSelector, StatusSelect
 	@Override
 	public List<Lldp> getFormated() {
 		String s = getEntry();
-		s = s.replace('"', ',');
-		s = s.replace("\n", "");
+		s = s.replace("\"", "");
+		s = s.replace("\n", ",");
 		List<Lldp> list = new ArrayList<Lldp>();
 		String[] array = s.split(",");
 		for(String i : array) {
-			Lldp l = new Lldp("", i);
-			if(!list.contains(l) && !i.isEmpty())
-				list.add(l);
+			list.add(new Lldp("", i));
 		}
 		return list;
 	}
@@ -38,7 +36,7 @@ public class SnmpToList extends SnmpToJava implements HostSelector, StatusSelect
 			}
 		} else {
 			for(int i = 0; i < status.getIfName().size(); i++) {
-				status.getIfOperStatus().add(array[i]);
+				status.getIfOperStatus().add(array[i+1]);
 			}
 		}
 		return status;

@@ -17,6 +17,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 >
+
 <script type="text/javascript" th:src="@{/assets/plotly.min.js}"></script>
 <script src="webjars/jquery/3.1.1/jquery.js"></script>
 <script src="webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -27,24 +28,27 @@
 	<div class="container-fluid">
 		<div class="wrapper">
 			<div th:insert="sidebar"></div>
+			<div ></div>
+			
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="row" style="padding-left: 15px;">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 5px;">
-						<div class="col" style="width:1px; height:1px">
+						<div class="col" style="width: 1px; height: 1px">
 							<div th:insert="botaoSidebar"></div>
 						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:120px; width: 100%;"></div>
+						<div class="col" style="height: 120px; width: 100%;">
+						</div>
 					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 grafico-col" >
+					<!-- <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 grafico-col">
 						<table class="table table-bordered">
 							<tr th:each="Lldp: ${hosts}">
-	   							<td th:text="${Lldp.host}" />
+								<td th:text="${Lldp.host}" />
 							</tr>
 						</table>
-					</div>
+					</div> -->
 				</div>
 			</div>
-			
+
 
 			<div class="row">
 				<svg width="1000" height="1000">
@@ -56,47 +60,48 @@
 					<text x="135" y="420" fill="white">switch1</text>
 					<text x="135" y="675" fill="white">client1</text>
 			
-					<a href="INSERIR LINK AQUI(MSM QUE O CLIENTE)" target="_blank">
-					<rect x="119" y="600" width="72" height="50"
+					<a href="/dashboard?hostName=client1">
+							<rect x="119" y="600" width="72" height="50"
 							style="stroke:rgb(0, 0, 0);stroke-width:3;fill-opacity:0.1;stroke-opacity:2.5"
 						/>
-					</a>
-					<a href="INSERIR LINK AQUI(Switch)" target="_blank">
-						<svg height="100" viewBox="0 0 24 24" x="90" y="320" width="125"><path
-								d="M0 0h24v24H0z" fill="none"
-							/><path
-								d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20  "
-							/></svg>	
-					</a>
-					<a href="INSERIR LINK AQUI(Swtich)" target="_blank">		
-						<svg height="100" viewBox="0 0 24 24" x="650" y="320" width="125"><path
-								d="M0 0h24v24H0z" fill="none"
-							/><path
-								d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20  "
-							/></svg>	
-					</a>		
-					<a href="INSERIR LINK AQUI(MESMO QUE O QUADRADO)" target="_blank">		
-						<svg height="100" viewBox="0 0 24 24" width="100" x="105" y="580"><g>
+							<svg height="100" viewBox="0 0 24 24" width="100" x="105" y="580">
+						<g>
 						<path d="M0 0h24v24H0z" fill="none" />
 						<path
 								d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"
 							/></g></svg>
-					</a>
-				
-					<a href="INSERIR LINK AQUI(SERVER)" target="_blank">	
-						<svg height="100" viewBox="0 0 24 24" width="100" x="665" y="50"><path
-								d="M0 0h24v24H0z" fill="none"
-							/><path
+
+						</a>
+						<a href="/dashboard?hostName=switch1">
+							<svg height="100" viewBox="0 0 24 24" x="90" y="320" width="125">
+								<path d="M0 0h24v24H0z" fill="none" id="path859" />
+							  	<path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 2"
+							     id="path861" />
+							 	 <circle style="fill:#353535;stroke-width:0.24" id="path1432" cx="7.0625453" cy="17.050425" r="2.1562598" />
+							</svg>	
+						</a>
+						<a href="/dashboard?hostName=oobmgmtswitch">		
+							<svg height="100" viewBox="0 0 24 24" x="650" y="320" width="125">
+								<path d="M0 0h24v24H0z" fill="none" id="path859" />
+							  	<path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 2"
+							     id="path861" />
+							 	 <circle style="fill:#353535;stroke-width:0.24" id="path1432" cx="7.0625453" cy="17.050425" r="2.1562598" />
+							</svg>	
+						</a>		
+						<a href="/dashboard?hostName=oobmgmtserver">	
+							<svg height="100" viewBox="0 0 24 24" width="100" x="665" y="50">
+						<path d="M0 0h24v24H0z" fill="none" />
+						<path
 								d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"
 							/></svg>
-					</a>
-					<a href="INSERIR LINK AQUI(ROUTER)" target="_blank">		
-						<svg height="100" viewBox="0 0 24 24" width="100" x="104" y="40"><path
-								d="M0 0h24v24H0z" fill="none"
-							/><path
+						</a>
+						<a href="/dashboard?hostName=router">		
+							<svg height="100" viewBox="0 0 24 24" width="100" x="100" y="40">
+						<path d="M0 0h24v24H0z" fill="none" />
+						<path
 								d="M20.2 5.9l.8-.8C19.6 3.7 17.8 3 16 3s-3.6.7-5 2.1l.8.8C13 4.8 14.5 4.2 16 4.2s3 .6 4.2 1.7zm-.9.8c-.9-.9-2.1-1.4-3.3-1.4s-2.4.5-3.3 1.4l.8.8c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1l.8-.8zM19 13h-2V9h-2v4H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM8 18H6v-2h2v2zm3.5 0h-2v-2h2v2zm3.5 0h-2v-2h2v2z"
 							/></svg>
-					</a>	
+						</a>	
 			
 				  <line x1="715" y1="160" x2="715" y2="370"
 						style="stroke:rgb(0, 0, 0);stroke-width:2"
@@ -114,35 +119,35 @@
 						style="stroke:rgb(0, 0, 0);stroke-width:2"
 					/>
 				  
-				  <circle cx="155" cy="153" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="router-swp2" cx="155" cy="153" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="155" cy="362" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="switch1-swp1" cx="155" cy="362" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="715" cy="365" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="oobmgmtswitch-swp1" cx="715" cy="365" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="715" cy="162" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="oobmgmtserver-swp2" cx="715" cy="162" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="200" cy="115" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="router-eth0" cx="200" cy="115" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="662" cy="378" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="oobmgmtswitch-swp3" cx="662" cy="378" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="200" cy="390" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="switch1-eth0" cx="200" cy="390" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="662" cy="396" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="oobmgmtswitch-swp2" cx="662" cy="396" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="155" cy="432" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="switch1-swp3" cx="155" cy="432" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>
-				  <circle cx="155" cy="588" r="7" stroke="black" stroke-width="3"
-						fill="rgb(0, 255, 0)"
+				  <circle id="client1-eth0" cx="155" cy="588" r="7" stroke="black" stroke-width="3"
+						fill="rgb(255, 0, 0)"
 					/>  		
 			</svg>
 
@@ -152,39 +157,32 @@
 	</div>
 
 	<script type="text/javascript" th:inline="javascript">
-        const name = [];
-        const status = [];
-        
-        getStatus();
-        
-       
-       	function getStatus() {
-            $.get("api/status", function(data) {
+		getStatus();
 
-                for(var k in data){
-
-                    name[k] = data[k].ifName;
-                    status[k] = data[k].ifOperStatus;
-                    console.log(k + " " + name[k] + " " + status[k])
-                }
-
-            });
-        }
-
-        setInterval(function() {
-      		for(var i in status){
-
-                if(status[i] == 'down'){
-                    var classes = document.getElementsByClassName("status-" + name[i]);
-                    for(var j in classes){
-                        console.log(classes[j]);
-                        classes[j].style.fill = "red";
-                    }
-                }
-            }
-        },5000);
- 
-    </script>
+		function getStatus() {
+			$.get("api/status", function(data) {
+				
+			/* console.log(data) */
+			for(let k in data){
+				
+				
+				
+				for(let i in data[k].ifOperStatus){
+					
+					if(data[k].ifOperStatus[i] == "up"){
+						/* console.log(`${data[k].host}-${data[k].ifName[i]}`) */
+						let elementoAtual = document.getElementById(`${data[k].host}-${data[k].ifName[i]}`)
+						/* console.log(elementoAtual) */
+						if(elementoAtual)
+							elementoAtual.style.fill = "rgb(0, 255, 0)";
+					}
+				}
+			} 
+			
+			});
+			
+		}
+	</script>
 
 </body>
 </html>

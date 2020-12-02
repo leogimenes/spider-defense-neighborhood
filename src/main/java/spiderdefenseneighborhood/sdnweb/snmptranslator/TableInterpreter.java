@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spiderdefenseneighborhood.sdnweb.model.Disco;
-import spiderdefenseneighborhood.sdnweb.model.Status;
 
 public class TableInterpreter {
-	private static List<Disco> listDisk = new ArrayList<Disco>();
-	private static List<Status> listNet = new ArrayList<Status>();
+	private static List<Disco> listDisk;
 	
 	public static List<Disco> clearDisk(SnmpToJavaTable table){
-		
+		listDisk = new ArrayList<Disco>();
 		for(int i = 0; i < table.getTable().size(); i++) {
 			Disco disco = new Disco();
 			getListDisk().add(disco);
@@ -23,18 +21,9 @@ public class TableInterpreter {
 		}
 		return getListDisk();
 	}
-	
-	public static List<Status> clearNet(SnmpToJavaTable table){
-		System.out.println(table.getEntry().indexOf("ifName"));
-		return getListNet();
-	}
 
 	public static List<Disco> getListDisk() {
 		return listDisk;
-	}
-
-	public static List<Status> getListNet() {
-		return listNet;
 	}
 
 }
